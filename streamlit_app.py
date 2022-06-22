@@ -42,7 +42,13 @@ streamlit.header("The fruit load list contains:")
 streamlit.dataframe(my_data_rows)
 
 #streamlit.text("What fruit would you like to add?")
-add_my_fruit = streamlit.multiselect('What fruit would you like to add?', list(my_fruit_list.index))
-fruits_to_show = my_fruit_list.loc[add_my_fruit]
+add_my_fruit = streamlit.text_input('What fruit would you like to add?','Kiwi')
+streamlit.write('The user entered ', fruit_choice)
+
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+
+fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+
+streamlit.dataframe(fruityvice_normalized)
 streamlit.text("Thanks for adding ' + fruits_to_show + '.")
 
